@@ -1,20 +1,15 @@
 import express from 'express';
-import bodyParser from 'body-parser';
-import tutorialRoutes from "./routes/tutorial.routes.js";
-
+import routes from './routes/tutorial.routes.js'; // Adjust path as needed
 
 const app = express();
 
-// Middleware
-app.use(bodyParser.json());
+// Middleware for parsing JSON
+app.use(express.json());
 
-// Sample Route
-app.get('/', (req, res) => {
-    res.send('Hey! I am abhi and creating my very first express Application');
-});
+// Call the routes function to set up the routes
+routes(app);
 
-tutorialRoutes(app);
-// Set Port
+// Set port and start the server
 const PORT = process.env.PORT || 3022;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

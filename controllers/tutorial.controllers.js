@@ -1,32 +1,23 @@
-import Tutorial from "../models/tutorial.model.js";
+import Tutorial from '../models/tutorial.model.js'; // Adjust the path as needed
 
-// Create and Save a new Tutorial
-// Correct export of functions
-export const create = (req, res) => {
-    res.send("Create tutorial");
-  };
-  
-  export const findAll = (req, res) => {
-    res.send("Retrieve all tutorials");
-  };
-  
-  export const findAllPublished = (req, res) => {
-    res.send("Retrieve all published tutorials");
-  };
-  
-  export const findOne = (req, res) => {
-    res.send("Retrieve a single tutorial by ID");
-  };
-  
-  export const update = (req, res) => {
-    res.send("Update a tutorial");
-  };
-  
-  export const deleteTutorial = (req, res) => {
-    res.send("Delete a tutorial");
-  };
-  
-  export const deleteAll = (req, res) => {
-    res.send("Delete all tutorials");
-  };
-  
+// Controller function to get all tutorials
+export const getAllTutorials = (req, res) => {
+    Tutorial.getAll((err, data) => {
+        if (err) {
+            console.error("Error retrieving tutorials:", err);
+            return res.status(500).json({
+                message: "Error retrieving tutorials",
+                error: err,
+            });
+        }
+
+        if (data.length === 0) {
+            return res.status(404).json({
+                message: "No tutorials found",
+            });
+        }
+
+        // Send the fetched tutorials as JSON
+        res.status(200).json(data);
+    });
+};
